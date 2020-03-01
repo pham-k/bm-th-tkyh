@@ -1,92 +1,71 @@
 <template>
-  <v-layout
-    column
-    justify-center
-    align-center
-  >
-    <v-flex
-      xs12
-      sm8
-      md6
-    >
-      <div class="text-center">
-        <logo />
-        <vuetify-logo />
-      </div>
-      <v-card>
-        <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
-        </v-card-title>
-        <v-card-text>
-          <p>Vuetify is a progressive Material Design component framework for Vue.js. It was designed to empower developers to create amazing applications.</p>
-          <p>
-            For more information on Vuetify, check out the <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-            >
-              documentation
-            </a>.
-          </p>
-          <p>
-            If you have questions, please join the official <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              title="chat"
-            >
-              discord
-            </a>.
-          </p>
-          <p>
-            Find a bug? Report it on the github <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              title="contribute"
-            >
-              issue board
-            </a>.
-          </p>
-          <p>Thank you for developing with Vuetify and I look forward to bringing more exciting features in the future.</p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3">
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-          >
-            Nuxt Documentation
-          </a>
-          <br>
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-          >
-            Nuxt GitHub
-          </a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn
-            color="primary"
-            nuxt
-            to="/inspire"
-          >
-            Continue
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-flex>
-  </v-layout>
+  <v-container>
+    <!-- Courses Section -->
+    <section class="mb-6">
+      <v-row class="pb-4">
+        <v-col cols="12" lg="4" md="6" sm="12">
+          <!-- <div class="display-1">Our Courses</div> -->
+          <h1 class="display-1">Giảng dạy</h1>
+        </v-col>
+        <v-spacer />
+        <!-- <v-col cols="12" lg="4" md="6" sm="12" class="foo2" /> -->
+        <v-col class="d-none d-sm-block" cols="12" lg="4" md="6" sm="12">
+          <v-row class="pr-3">
+            <v-spacer />
+            <v-btn outlined nuxt to="/courses">Xem tất cả ({{ getCoursesQuantity }})</v-btn>
+          </v-row>
+        </v-col>
+      </v-row>
+      <course-cards :courses="getCoursesByFeatured" />
+      <v-row class="pr-3 d-sm-none">
+        <v-spacer />
+        <v-btn outlined nuxt to="/courses">Xem tất cả ({{ getCoursesQuantity }})</v-btn>
+      </v-row>
+    </section>
+    <!-- Research Section -->
+    <section>
+      <v-row class="pb-4">
+        <v-col cols="12" lg="4" md="6" sm="12">
+          <!-- <div class="display-1">Our Courses</div> -->
+          <h1 class="display-1">Nghiên cứu</h1>
+        </v-col>
+        <v-spacer />
+        <!-- <v-col cols="12" lg="4" md="6" sm="12" class="foo2" /> -->
+        <v-col class="d-none d-sm-block" cols="12" lg="4" md="6" sm="12">
+          <v-row class="pr-3">
+            <v-spacer />
+            <v-btn outlined nuxt to="/research">Xem thêm</v-btn>
+          </v-row>
+        </v-col>
+      </v-row>
+      <section-research />
+      <v-row class="pr-3 d-sm-none">
+        <v-spacer />
+        <v-btn outlined nuxt to="/research">Xem thêm</v-btn>
+      </v-row>
+    </section>
+  </v-container>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
-
+import CourseCards from '@/components/CourseCards.vue'
+import SectionResearch from '@/components/SectionResearch.vue'
 export default {
   components: {
-    Logo,
-    VuetifyLogo
+    CourseCards,
+    SectionResearch
+  },
+  computed: {
+    getCoursesByFeatured () {
+      // console.log(this.$store.getters['courses/getCoursesByFeatured'])
+      return this.$store.getters['courses/getCoursesByFeatured']
+    },
+    getCoursesQuantity () {
+      return this.$store.getters['courses/getCoursesQuantity']
+    }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+</style>
